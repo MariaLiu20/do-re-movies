@@ -42,9 +42,23 @@ export const MovieSearch = () => {
   return (
     <>
       <SearchBar query={query} onChange={setQuery} />
-      {results.map((movie) => (
-        <p key={movie.id}>{movie.title}</p>
-      ))}
+      <div className="mt-6 flex flex-wrap gap-4 justify-left">
+        {results.map((movie) => (
+          <div
+            key={movie.id}
+            className="max-w-sm p-6 rounded-lg shadow-md bg-slate-900"
+          >
+            <h5 className="mb-2 text-lg font-bold tracking-tight text-white">
+              {movie.title}
+            </h5>
+            <img
+              className="block rounded-md"
+              src={`https://image.tmdb.org/t/p/w154${movie.poster_path}`}
+              alt={movie.title}
+            />
+          </div>
+        ))}
+      </div>
     </>
   );
 };
