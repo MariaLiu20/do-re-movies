@@ -1,5 +1,5 @@
 import "./App.css";
-import { SearchBar } from "./components/SearchBar";
+import { MovieSearch } from "./components/MovieSearch";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
         <p className="text-slate-400 text-lg mb-8">
           Discover millions of movies and TV shows.
         </p>
-        <SearchBar />
+        <MovieSearch />
       </header>
     </div>
   );
