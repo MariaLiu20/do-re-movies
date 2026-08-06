@@ -34,8 +34,15 @@ export const MovieSearch = () => {
     }
   };
 
+  if (!query) {
+    setResults([]);
+    setStatus("idle");
+  }
+
   useEffect(() => {
-    if (!query) return;
+    if (!query) {
+      return;
+    }
     const timeoutId = setTimeout(() => {
       fetchMovies();
     }, 300); // debounce delay
