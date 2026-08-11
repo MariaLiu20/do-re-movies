@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
+import { Player } from "./Player";
 
 const fetchMovieDetails = async ({ queryKey }) => {
   const [, movieId] = queryKey;
@@ -61,7 +62,6 @@ export const MovieDetail = () => {
       <Link to="/" className="mb-6 inline-block text-cyan-400">
         ← Back to Home
       </Link>
-
       <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-6 shadow-xl flex flex-col gap-6 md:flex-row md:items-start">
         {movie.poster_path && (
           <img
@@ -83,6 +83,8 @@ export const MovieDetail = () => {
           <p className="mb-6 leading-7 text-slate-300">{movie?.overview}</p>
         </div>
       </div>
+      Play Movie
+      <Player id={id} />
     </div>
   );
 };
