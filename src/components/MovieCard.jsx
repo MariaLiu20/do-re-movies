@@ -2,21 +2,37 @@ import { Link } from "react-router";
 
 export const MovieCard = ({ movie }) => {
   return (
-    <Link to={`/movie/${movie.id}`}>
-      <div className="max-w-sm p-6 rounded-lg shadow-md bg-slate-900">
-        <h5 className="mb-2 text-lg font-bold tracking-tight text-white">
-          {movie.title}
-        </h5>
+    <div
+      key={movie.id}
+      style={{
+        flex: "0 0 198px",
+        width: "198px",
+        borderRadius: "12px",
+        overflow: "hidden",
+        background: "rgba(15,23,42,0.7)",
+        boxShadow: "0 10px 25px rgba(0,0,0,0.25)",
+        scrollSnapAlign: "start",
+        transition: "transform 0.2s ease",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = "scale(1.02)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "scale(1)";
+      }}
+    >
+      {movie.poster_path && (
         <img
-          className="block rounded-md"
-          src={
-            movie.poster_path
-              ? `https://image.tmdb.org/t/p/w154${movie.poster_path}`
-              : `https://placehold.co/154x231?text=No+Poster`
-          }
+          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
+          style={{
+            display: "block",
+            width: "198px",
+            height: "298px",
+            objectFit: "cover",
+          }}
         />
-      </div>
-    </Link>
+      )}
+    </div>
   );
 };
