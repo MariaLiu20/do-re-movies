@@ -1,6 +1,34 @@
 import { NavBar } from "./NavBar";
+import { useQuery } from "@tanstack/react-query";
+import { MovieCard } from "./MovieCard";
+
+const fetchTrendingMovies = async () => {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/trending/movie/day?language=en-US`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_READ_ACCESS_TOKEN}`,
+      },
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error(`TMDB error: ${response.status}`);
+  }
+
+  return response.json();
+};
 
 export const Home = () => {
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["dailyTrendingMovies"],
+    queryFn: fetchTrendingMovies,
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const movies = data?.results ?? [];
+
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 py-8 sm:px-6 lg:px-8">
       <NavBar />
