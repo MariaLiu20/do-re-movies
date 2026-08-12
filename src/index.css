@@ -8,3 +8,289 @@
 @theme {
   --font-sixtyfour: "Sixtyfour Convergence", sans-serif;
 }
+
+@theme inline {
+  --color-background: #0a0a14;
+  --color-foreground: #ccccee;
+  --color-card: #0f0f24;
+  --color-card-foreground: #ccccee;
+  --color-primary: #00ccff;
+  --color-primary-foreground: #000011;
+  --color-secondary: #1a1a3a;
+  --color-secondary-foreground: #aaaacc;
+  --color-muted: #111128;
+  --color-muted-foreground: #8888aa;
+  --color-accent: #ff6600;
+  --color-accent-foreground: #ffffff;
+  --color-border: #2a2a5a;
+  --color-ring: #00ccff;
+  --radius: 2px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0a0a14;
+  color: #ccccee;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  background: #0f0f24;
+  border: 1px solid #2a2a5a;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #3a3a7a 0%, #1a1a4a 100%);
+  border: 1px solid #5555aa;
+}
+::-webkit-scrollbar-corner {
+  background: #0a0a14;
+}
+
+a {
+  color: #00ccff;
+  text-decoration: underline;
+}
+a:hover {
+  color: #ff6600;
+}
+a:visited {
+  color: #9966ff;
+}
+
+/* Retro raised button style */
+.btn-retro {
+  background: linear-gradient(180deg, #2a2a6a 0%, #111138 100%);
+  border: 1px solid #5555bb;
+  border-top-color: #8888dd;
+  border-left-color: #8888dd;
+  color: #ccccff;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 3px 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.btn-retro:hover {
+  background: linear-gradient(180deg, #3a3a8a 0%, #1a1a50 100%);
+  color: #ffffff;
+}
+.btn-retro:active {
+  border-top-color: #2a2a5a;
+  border-left-color: #2a2a5a;
+  border-bottom-color: #8888dd;
+  border-right-color: #8888dd;
+  background: linear-gradient(180deg, #111138 0%, #2a2a6a 100%);
+}
+
+.btn-accent {
+  background: linear-gradient(180deg, #ff8800 0%, #cc4400 100%);
+  border: 1px solid #ffaa00;
+  border-top-color: #ffcc44;
+  border-left-color: #ffcc44;
+  color: #ffffff;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 3px 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.btn-accent:hover {
+  background: linear-gradient(180deg, #ffaa00 0%, #dd5500 100%);
+}
+
+/* Inset panel */
+.panel-inset {
+  background: #07071a;
+  border: 1px solid #1a1a4a;
+  border-top-color: #050515;
+  border-left-color: #050515;
+  border-bottom-color: #2a2a6a;
+  border-right-color: #2a2a6a;
+}
+
+/* Raised panel */
+.panel-raised {
+  background: linear-gradient(180deg, #141432 0%, #0d0d28 100%);
+  border: 1px solid #2a2a5a;
+  border-top-color: #4a4a8a;
+  border-left-color: #4a4a8a;
+}
+
+/* Section header bar */
+.section-header {
+  background: linear-gradient(90deg, #1a0055 0%, #220066 30%, #0a0a14 100%);
+  border-bottom: 2px solid #00ccff;
+  font-family: Impact, Arial, sans-serif;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #00ccff;
+  padding: 4px 8px;
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+.marquee-inner {
+  display: inline-block;
+  animation: marquee 20s linear infinite;
+  white-space: nowrap;
+}
+
+/* Blink animation */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Star rating */
+.star {
+  color: #888;
+  font-size: 14px;
+}
+.star.filled {
+  color: #ffcc00;
+}
+
+/* Horizontal rule retro */
+.hr-retro {
+  border: none;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #00ccff 20%, #9933ff 50%, #00ccff 80%, transparent);
+  margin: 8px 0;
+}
+
+/* Nav tab */
+.nav-tab {
+  display: inline-block;
+  background: linear-gradient(180deg, #1a1a4a 0%, #0d0d28 100%);
+  border: 1px solid #3a3a7a;
+  border-bottom: none;
+  color: #9999cc;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 4px 12px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+}
+.nav-tab:hover, .nav-tab.active {
+  background: linear-gradient(180deg, #2a2a6a 0%, #1a1a4a 100%);
+  color: #00ccff;
+  border-color: #00ccff;
+}
+
+/* Movie card */
+.movie-card {
+  background: #0f0f24;
+  border: 1px solid #2a2a5a;
+  cursor: pointer;
+  transition: border-color 0.1s;
+}
+.movie-card:hover {
+  border-color: #00ccff;
+}
+
+/* NEW badge */
+.badge-new {
+  background: #ff0000;
+  color: #ffffff;
+  font-family: Impact, sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 1px 4px;
+  letter-spacing: 1px;
+}
+
+/* HD badge */
+.badge-hd {
+  background: linear-gradient(180deg, #006699 0%, #003366 100%);
+  border: 1px solid #0099cc;
+  color: #00ccff;
+  font-family: Impact, sans-serif;
+  font-size: 9px;
+  padding: 1px 3px;
+  letter-spacing: 1px;
+}
+
+/* Counter */
+.counter {
+  font-family: 'Courier Prime', monospace;
+  color: #00ff66;
+  font-size: 13px;
+  background: #001100;
+  border: 1px solid #003300;
+  padding: 1px 4px;
+}
+
+/* Progress bar retro */
+.progress-bar {
+  background: #050515;
+  border: 1px solid #2a2a5a;
+  height: 12px;
+  position: relative;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #003399 0%, #0066ff 50%, #33aaff 100%);
+  position: relative;
+}
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: rgba(255,255,255,0.15);
+}
+
+/* Search input */
+.search-input {
+  background: #07071a;
+  border: 1px solid #2a2a6a;
+  border-top-color: #050515;
+  border-left-color: #050515;
+  color: #ccccff;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 11px;
+  padding: 3px 6px;
+  outline: none;
+}
+.search-input:focus {
+  border-color: #00ccff;
+}
+.search-input::placeholder {
+  color: #555577;
+}
+
+/* Ticker item */
+.ticker-item {
+  display: inline-block;
+  padding: 0 24px;
+  color: #ffcc00;
+}
+.ticker-item .title {
+  color: #ff6600;
+}
