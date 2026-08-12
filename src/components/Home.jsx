@@ -94,28 +94,44 @@ export const Home = () => {
         </span>
       </div>
 
-      {/* Movies Grid */}
-      <div className="flex flex-wrap gap-2.5">
-        {movies.map((m) => (
-          <MovieCard key={m.id} movie={m} />
-        ))}
-      </div>
+      {isLoading && (
+        <div className="mt-4 border border-[#2a2a6a] bg-[#0d0d2e] px-3 py-4 text-[11px] font-bold uppercase tracking-[2px] text-[#ccccff]">
+          Loading titles...
+        </div>
+      )}
 
-      {/* Stats row */}
-      <div className="mt-3 px-2.5 py-2 bg-[#07071a] border border-[#1a1a3a] flex gap-6 text-[10px] text-[#666688]">
-        <span>
-          Total Movies: <span className="text-[#9999cc]">12,847</span>
-        </span>
-        <span>
-          New This Week: <span className="text-[#00ccff]">48</span>
-        </span>
-        <span>
-          HD Available: <span className="text-[#0099ff]">1,204</span>
-        </span>
-        <span>
-          Most Viewed: <span className="text-[#ffcc00]">Finding Nemo</span>
-        </span>
-      </div>
+      {isError && (
+        <div className="mt-4 border border-[#ff6600] bg-[#2a0d0d] px-3 py-4 text-[11px] font-bold uppercase tracking-[2px] text-[#ffd1b3]">
+          Error: {error.message}
+        </div>
+      )}
+
+      {!isLoading && !isError && (
+        <>
+          {/* Movies Grid */}
+          <div className="flex flex-wrap gap-2.5">
+            {movies.map((m) => (
+              <MovieCard key={m.id} movie={m} />
+            ))}
+          </div>
+
+          {/* Stats row */}
+          <div className="mt-3 px-2.5 py-2 bg-[#07071a] border border-[#1a1a3a] flex gap-6 text-[10px] text-[#666688]">
+            <span>
+              Total Movies: <span className="text-[#9999cc]">12,847</span>
+            </span>
+            <span>
+              New This Week: <span className="text-[#00ccff]">48</span>
+            </span>
+            <span>
+              HD Available: <span className="text-[#0099ff]">1,204</span>
+            </span>
+            <span>
+              Most Viewed: <span className="text-[#ffcc00]">Finding Nemo</span>
+            </span>
+          </div>
+        </>
+      )}
     </>
   );
 };
