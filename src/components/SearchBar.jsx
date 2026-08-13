@@ -1,11 +1,18 @@
-export const SearchBar = ({ query, onChange }) => {
+import { Link } from "react-router";
+
+export const SearchBar = ({ query, onChange, onSubmit }) => {
   return (
-    <input
-      type="text"
-      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mx-auto max-w-3xl"
-      placeholder="Search movies..."
-      value={query}
-      onChange={(e) => onChange(e.target.value)}
-    />
+    <div className="flex items-center gap-1 shrink-0">
+      <input
+        className="search-input w-40 sm:w-50 md:w-60 lg:w-70"
+        type="text"
+        placeholder="Search movies, TV..."
+        value={query}
+        onChange={(e) => onChange(e.target.value)}
+      />
+      <Link to="/search" className="btn-retro" onClick={onSubmit}>
+        GO
+      </Link>
+    </div>
   );
 };
