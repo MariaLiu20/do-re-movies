@@ -26,10 +26,10 @@ export const MovieCard = ({ movie }) => {
         <div className="font-['Impact',Arial,sans-serif] text-xs text-[#ccccff] tracking-[0.5px] leading-[1.2]">
           {movie.title}
         </div>
-        <div className="text-[#888899] text-[10px] mt-0.5">
-          {movie.year} &bull; {movie.genre}
+        <div className="text-xs mt-0.5">
+          {movie.release_date.slice(0, 4)} &bull;{" "}
+          {movie.vote_average.toFixed(1)} ★
         </div>
-        <div className="mt-0.5">★★★★</div>
 
         {playing && (
           <div className="mt-1">
