@@ -1,7 +1,7 @@
 import { NavBar } from "./NavBar";
 import { useQuery } from "@tanstack/react-query";
 import { MovieCard } from "./MovieCard";
-import { Header } from "./Header";
+import { Layout } from "./Header";
 
 const fetchTrendingMovies = async () => {
   const response = await fetch(
@@ -32,9 +32,6 @@ export const Home = () => {
 
   return (
     <div className="min-h-screen bg-[#0a0a14] font-sans text-[12px]">
-      <Header />
-      <NavBar />
-
       <div className="section-header mb-2">
         NEW RELEASES &amp; TOP PICKS &mdash;{" "}
         <span className="text-[10px] font-['Verdana',sans-serif] text-[#7799cc] ml-2">

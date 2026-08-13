@@ -1,7 +1,7 @@
 import { SearchBar } from "./SearchBar";
 import { NavBar } from "./NavBar";
 
-export const Header = () => {
+export const Layout = () => {
   return (
     <header className="flex items-center gap-4 px-3 py-9 border-b-2 border-[#2a2a6a] bg-gradient-to-b from-[#0d0d2e] to-[#070718]">
       {/* Logo */}
