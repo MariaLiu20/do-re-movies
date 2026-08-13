@@ -10,7 +10,7 @@ export const SearchBar = ({ query, onChange, onSubmit }) => {
         value={query}
         onChange={(e) => onChange(e.target.value)}
       />
-      <Link to="/search" className="btn-retro" onClick={onSubmit}>
+      <Link to={`/search?query=${encodeURIComponent(query)}`} className="btn-retro" onClick={onSubmit}>
         GO
       </Link>
     </div>

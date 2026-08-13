@@ -3,7 +3,7 @@ import { NavBar } from "./NavBar";
 
 export const Layout = () => {
   return (
-    <div className="min-h-screen bg-[#0a0a14] font-[Verdana,Arial,sans-serif] text-xs">
+    <div className="bg-[#0a0a14] font-[Verdana,Arial,sans-serif] text-xs">
       <header className="flex items-center gap-4 px-3 py-5 border-b-2 border-[#2a2a6a] bg-gradient-to-b from-[#0d0d2e] to-[#070718]">
         {/* Logo, make clickable */}
         <div className="shrink-0">
@@ -24,11 +24,11 @@ export const Layout = () => {
         </div>
 
         {/* Separator */}
-        <div className="w-px h-11 bg-[#2a2a5a] shrink-0" />
+        <div className="w-px h-13 bg-[#2a2a5a] shrink-0" />
 
         {/* Hero text */}
         <div className="flex-1">
-          <div className="text-xs text-[#9999cc]">
+          <div className="text-[11px] text-[#9999cc]">
             Welcome back,{" "}
             <span className="text-[#00ccff] font-bold">MovieFan2003</span>!
             &nbsp;&nbsp;|&nbsp;&nbsp; Members online:{" "}
