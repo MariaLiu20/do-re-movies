@@ -1,7 +1,7 @@
 import { NavBar } from "./NavBar";
 import { useQuery } from "@tanstack/react-query";
 import { MovieCard } from "./MovieCard";
-import { Layout } from "./Header";
+import { Layout } from "./Layout";
 import { useState } from "react";
 import { LeftSidebar } from "./LeftSidebar";
 import { RightSidebar } from "./RightSidebar";
