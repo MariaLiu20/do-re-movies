@@ -4,7 +4,6 @@ import { Home } from "./components/Home";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { SearchPage } from "./components/SearchPage";
 import { Layout } from "./components/Layout";
-import { NavBar } from "./components/NavBar";
 
 function App() {
   return (

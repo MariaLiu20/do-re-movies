@@ -1,18 +1,28 @@
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
+import { useState } from "react";
 
-export const SearchBar = ({ query, onChange, onSubmit }) => {
+export const SearchBar = () => {
+  const navigate = useNavigate();
+  const [query, setQuery] = useState("");
+
   return (
-    <div className="flex items-center gap-1 shrink-0">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        navigate(`/search?q=${encodeURIComponent(query)}`);
+      }}
+      className="flex items-center gap-1 shrink-0"
+    >
       <input
         className="search-input w-40 sm:w-50 md:w-60 lg:w-70"
         type="text"
         placeholder="Search movies, TV..."
         value={query}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => setQuery(e.target.value)}
       />
-      <Link to={`/search?query=${encodeURIComponent(query)}`} className="btn-retro" onClick={onSubmit}>
+      <button type="submit" className="btn-retro">
         GO
-      </Link>
-    </div>
+      </button>
+    </form>
   );
 };
