@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { MediaCard } from "./MediaCard";
+import { PersonCard } from "./PersonCard";
 import { useState } from "react";
 import { LeftSidebar } from "./LeftSidebar";
 import { RightSidebar } from "./RightSidebar";
 import { MEDIA_TYPES } from "../constants/mediaTypes";
 
-const fetchTrendingMoviesTv = async (mediaType) => {
+const fetchTrending = async (mediaType) => {
   const response = await fetch(
     `https://api.themoviedb.org/3/trending/${mediaType}/day?language=en-US`,
     {
@@ -26,8 +27,8 @@ const fetchTrendingMoviesTv = async (mediaType) => {
 export const Home = () => {
   const [activeSection, setActiveSection] = useState(MEDIA_TYPES.MOVIE);
   const { data } = useQuery({
-    queryKey: ["dailyTrendingMovies", activeSection],
-    queryFn: () => fetchTrendingMoviesTv(activeSection),
+    queryKey: ["trendingToday", activeSection],
+    queryFn: () => fetchTrending(activeSection),
     staleTime: 1000 * 60 * 5,
   });
 
@@ -122,26 +123,7 @@ export const Home = () => {
 
         {activeSection === MEDIA_TYPES.MOVIE && (
           <>
-            <div className="section-header mb-2">
-              NEW RELEASES &amp; TOP PICKS &mdash;
-              <span className="text-[10px] font-[Verdana,sans-serif] text-[#7799cc] ml-2">
-                {movies.length} titles available
-              </span>
-            </div>
-            <div className="flex gap-1.5 items-center mb-2.5 text-[10px] text-[#7777aa]">
-              Sort by:&nbsp;
-              {["Newest", "Most Viewed", "Rating", "A-Z"].map((s) => (
-                <button key={s} className="btn-retro text-[9px] py-0 px-1.5">
-                  {s}
-                </button>
-              ))}
-              <span className="ml-auto text-[#555577]">
-                Page 1 of 24&nbsp;
-                <button className="btn-retro text-[9px]">&#171; PREV</button>
-                &nbsp;
-                <button className="btn-retro text-[9px]">NEXT &#187;</button>
-              </span>
-            </div>
+            <div className="section-header mb-2"></div>
             <div className="flex flex-wrap gap-2.5">
               {movies.map((m) => (
                 <MediaCard key={m.id} media={m} />
@@ -167,23 +149,23 @@ export const Home = () => {
 
         {activeSection === MEDIA_TYPES.TV && (
           <>
-            <div className="section-header mb-2">
-              TV SHOWS &amp; SERIES &mdash;
-              <span className="text-[10px] font-[Verdana,sans-serif] text-[#7799cc] ml-2">
-                {movies.length} series available
-              </span>
-            </div>
-            <div className="flex gap-1.5 items-center mb-2.5 text-[10px] text-[#7777aa]">
-              Sort by:&nbsp;
-              {["Latest Season", "Most Watched", "Network", "A-Z"].map((s) => (
-                <button key={s} className="btn-retro text-[9px] py-0 px-1.5">
-                  {s}
-                </button>
-              ))}
-            </div>
+            <div className="section-header mb-2"></div>
+
             <div className="flex flex-wrap gap-2.5">
               {movies.map((s) => (
                 <MediaCard key={s.id} media={s} />
+              ))}
+            </div>
+          </>
+        )}
+
+        {activeSection === MEDIA_TYPES.PERSON && (
+          <>
+            <div className="section-header mb-2"></div>
+
+            <div className="flex flex-wrap gap-2.5">
+              {movies.map((person) => (
+                <PersonCard key={person.id} person={person} />
               ))}
             </div>
           </>
