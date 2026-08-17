@@ -8,7 +8,8 @@ export const MediaCard = ({ media }) => {
     : "https://placehold.co/154x231?text=No+Poster";
 
   return (
-    <div className="movie-card w-[162px]">
+    <Link
+            to={`/movie/${media.id}`} className="movie-card w-[162px]">
       <div className="relative h-[220px] overflow-hidden bg-[#050520]">
         <img
           src={posterUrl}
@@ -42,6 +43,6 @@ export const MediaCard = ({ media }) => {
           <button className="btn-retro text-[10px] px-1.5 py-0.5">+</button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };

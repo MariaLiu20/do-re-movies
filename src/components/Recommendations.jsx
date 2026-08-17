@@ -58,22 +58,11 @@ export const Recommendations = ({ mediaType, id }) => {
 
   return (<>
           <div className="section-header mb-2">More Like This</div>
-          <div className="border border-[#1a1a3a]" style={{ background: '#0d0d28' }}>
-            {results.filter(m => m.id !== id).slice(0, 3).map(m => (
-              <div
-                key={m.id}
-                className="flex gap-2 px-2 py-1.5 border-b border-[#111128] cursor-pointer hover:bg-[#111128]"
-                onClick={() => navigate(`/movie/${m.id}`)}
-              >
-                <img src={m.img} alt={m.title} className="w-8 h-11 object-cover shrink-0" />
-                <div>
-                  <div className="text-[10px] text-[#9999cc] leading-tight">{m.title}</div>
-                  <div className="text-[9px] text-[#555577]">{m.year}</div>
-                  <StarRating rating={m.rating} />
-                </div>
-              </div>
-            ))}
-          </div></>
+          <div className="flex flex-wrap gap-2.5">
+            {results.filter(m => m.id !== id).slice(0, 6).map(m => (
+              <MediaCard key={m.id} media={m} />
+            ))}</div>
+            </>
   );
 };
 

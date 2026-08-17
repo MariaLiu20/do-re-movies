@@ -160,7 +160,7 @@ export const SearchResults = () => {
               </button>
             </span>
           </div>
-          <div className="flex flex-wrap gap-4 justify-start"
+          <div className="flex flex-wrap gap-2.5"
             style={{ opacity: isPlaceholderData ? 0.5 : 1 }}>
             {results
               .filter(
