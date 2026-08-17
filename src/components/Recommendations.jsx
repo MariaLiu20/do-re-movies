@@ -1,6 +1,5 @@
-// Recommendations.jsx
 import { useQuery } from "@tanstack/react-query";
-import { Link, useNavigate} from "react-router";
+import { Link} from "react-router";
 import { MediaCard } from "./MediaCard";
 
 function StarRating({ rating, max = 5 }) {
@@ -27,7 +26,6 @@ const fetchRecommendations = async (mediaType, id) => {
 };
 
 export const Recommendations = ({ mediaType, id }) => {
-  const navigate = useNavigate();
   const { data, status, error } = useQuery({
     queryKey: ["recommendations", mediaType, id],
     queryFn: () => fetchRecommendations(mediaType, id),

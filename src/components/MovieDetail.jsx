@@ -58,6 +58,20 @@ const fetchMovieDetails = async ({ queryKey }) => {
   return response.json();
 };
 
+const fetchVideos = async ({ queryKey }) => {
+  const [, movieId] = queryKey;
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/${movieId}/videos`,
+    {
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_READ_ACCESS_TOKEN}`,
+      },
+    },
+  );
+  if (!response.ok) throw new Error(`TMDB error: ${response.status}`);
+  return response.json();
+};
+
 export const MovieDetail = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const { id } = useParams(); // The key 'id' matches the ':id' path variable in the Route configuration
@@ -74,6 +88,16 @@ export const MovieDetail = () => {
     queryFn: fetchMovieDetails,
     enabled: !!id,
   });
+
+  const { data: videosData } = useQuery({
+    queryKey: ["videos", id],
+    queryFn: fetchVideos,
+    enabled: !!id,
+  });
+
+  const trailer = videosData?.results.find(
+    (v) => v.type === "Trailer" && v.site === "YouTube",
+  );
 
   if (isLoading) {
     return (
@@ -120,11 +144,21 @@ export const MovieDetail = () => {
         <Player id={id} />
       ) : (
         <div className="relative border border-[#2a2a5a] overflow-hidden h-[280px] mb-3 bg-[#050515]">
-          <img
-            src={movie.imgFull}
-            alt={movie.title}
-            className="w-full h-full object-cover block opacity-40"
-          />
+          {trailer ? (
+            <iframe
+              src={`https://www.youtube.com/embed/${trailer.key}?autoplay=1&mute=1&loop=1&playlist=${trailer.key}&controls=0&showinfo=0&modestbranding=1&playsinline=1`}
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              style={{ scale: "2.1" }} // crops YouTube's own letterboxing/UI edges
+              allow="autoplay; encrypted-media"
+              frameBorder="0"
+            />
+          ) : (
+            <img
+              src={movie.imgFull}
+              alt={movie.title}
+              className="w-full h-full object-cover block opacity-40"
+            />
+          )}
           <div
             className="absolute inset-0 flex flex-col justify-end p-5"
             style={{
