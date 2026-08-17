@@ -1,6 +1,6 @@
 import { NavBar } from "./NavBar";
 import { useQuery } from "@tanstack/react-query";
-import { MovieCard } from "./MovieCard";
+import { MediaCard } from "./MediaCard";
 import { Layout } from "./Layout";
 import { useState } from "react";
 import { LeftSidebar } from "./LeftSidebar";
@@ -145,7 +145,7 @@ export const Home = () => {
             </div>
             <div className="flex flex-wrap gap-2.5">
               {movies.map((m) => (
-                <MovieCard key={m.id} movie={m} />
+                <MediaCard key={m.id} media={m} />
               ))}
             </div>
             <div className="mt-3 px-2.5 py-2 bg-[#07071a] border border-[#1a1a3a] flex gap-6 text-[10px] text-[#666688]">
@@ -184,7 +184,7 @@ export const Home = () => {
             </div>
             <div className="flex flex-wrap gap-2.5">
               {movies.map((s) => (
-                <MovieCard key={s.id} show={s} />
+                <MediaCard key={s.id} media={s} />
               ))}
             </div>
           </>
