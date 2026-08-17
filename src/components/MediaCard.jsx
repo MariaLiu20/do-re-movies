@@ -11,6 +11,7 @@ export const MediaCard = ({ media }) => {
     <Link
       style={{
     color: "inherit",
+    textDecoration: "none",
   }}
       to={`/movie/${media.id}`}
       className="movie-card w-[162px]"

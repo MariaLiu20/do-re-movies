@@ -1,14 +1,13 @@
-import { NavBar } from "./NavBar";
 import { useQuery } from "@tanstack/react-query";
 import { MediaCard } from "./MediaCard";
-import { Layout } from "./Layout";
 import { useState } from "react";
 import { LeftSidebar } from "./LeftSidebar";
 import { RightSidebar } from "./RightSidebar";
+import { MEDIA_TYPES } from "../constants/mediaTypes";
 
-const fetchTrendingMovies = async () => {
+const fetchTrendingMoviesTv = async (mediaType) => {
   const response = await fetch(
-    `https://api.themoviedb.org/3/trending/movie/day?language=en-US`,
+    `https://api.themoviedb.org/3/trending/${mediaType}/day?language=en-US`,
     {
       method: "GET",
       headers: {
@@ -25,10 +24,10 @@ const fetchTrendingMovies = async () => {
 };
 
 export const Home = () => {
-  const [activeSection, setActiveSection] = useState("movies");
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["dailyTrendingMovies"],
-    queryFn: fetchTrendingMovies,
+  const [activeSection, setActiveSection] = useState(MEDIA_TYPES.MOVIE);
+  const { data } = useQuery({
+    queryKey: ["dailyTrendingMovies", activeSection],
+    queryFn: () => fetchTrendingMoviesTv(activeSection),
     staleTime: 1000 * 60 * 5,
   });
 
@@ -102,26 +101,26 @@ export const Home = () => {
         {/* Section tabs */}
         <div className="flex gap-0.5 border-b-2 border-[#1a1a4a]">
           <button
-            className={`nav-tab ${activeSection === "movies" ? "active" : ""}`}
-            onClick={() => setActiveSection("movies")}
+            className={`nav-tab ${activeSection === MEDIA_TYPES.MOVIE ? "active" : ""}`}
+            onClick={() => setActiveSection(MEDIA_TYPES.MOVIE)}
           >
             &#127909; Movies
           </button>
           <button
-            className={`nav-tab ${activeSection === "tv" ? "active" : ""}`}
-            onClick={() => setActiveSection("tv")}
+            className={`nav-tab ${activeSection === MEDIA_TYPES.TV ? "active" : ""}`}
+            onClick={() => setActiveSection(MEDIA_TYPES.TV)}
           >
             &#128250; TV Shows
           </button>
           <button
-            className={`nav-tab ${activeSection === "people" ? "active" : ""}`}
-            onClick={() => setActiveSection("people")}
+            className={`nav-tab ${activeSection === MEDIA_TYPES.PERSON ? "active" : ""}`}
+            onClick={() => setActiveSection(MEDIA_TYPES.PERSON)}
           >
             &#128250; People
           </button>
         </div>
 
-        {activeSection === "movies" && (
+        {activeSection === MEDIA_TYPES.MOVIE && (
           <>
             <div className="section-header mb-2">
               NEW RELEASES &amp; TOP PICKS &mdash;
@@ -166,7 +165,7 @@ export const Home = () => {
           </>
         )}
 
-        {activeSection === "tv" && (
+        {activeSection === MEDIA_TYPES.TV && (
           <>
             <div className="section-header mb-2">
               TV SHOWS &amp; SERIES &mdash;
