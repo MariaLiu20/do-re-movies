@@ -9,7 +9,12 @@ export const MediaCard = ({ media }) => {
 
   return (
     <Link
-            to={`/movie/${media.id}`} className="movie-card w-[162px]">
+      style={{
+    color: "inherit",
+  }}
+      to={`/movie/${media.id}`}
+      className="movie-card w-[162px]"
+    >
       <div className="relative h-[220px] overflow-hidden bg-[#050520]">
         <img
           src={posterUrl}
@@ -25,12 +30,11 @@ export const MediaCard = ({ media }) => {
       </div>
 
       <div className="px-1.5 py-1.25">
-        <div className="font-['Impact',Arial,sans-serif] text-xs text-[#ccccff] tracking-[0.5px] leading-[1.2]">
+        <div className="font-['Impact',Arial,sans-serif] text-xs tracking-[0.5px] leading-[1.2]">
           {title}
         </div>
         <div className="text-xs mt-0.5">
-          {releaseDate.slice(0, 4)} &bull;{" "}
-          {media.vote_average.toFixed(1)} ★
+          {releaseDate.slice(0, 4)} &bull; {media.vote_average.toFixed(1)} ★
         </div>
 
         <div className="flex gap-1 mt-1.25">
