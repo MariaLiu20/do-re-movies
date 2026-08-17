@@ -4,6 +4,7 @@ import { Player } from "./Player";
 import { useNavigate } from "react-router";
 import { Recommendations } from "./Recommendations";
 import { useState } from "react";
+import { getPosterUrl } from "../utils/poster";
 
 const USER_REVIEWS = [
   {
@@ -99,6 +100,10 @@ export const MovieDetail = () => {
     (v) => v.type === "Trailer" && v.site === "YouTube",
   );
 
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
   if (isLoading) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-12 text-center text-slate-300">
@@ -144,7 +149,7 @@ export const MovieDetail = () => {
         <Player id={id} />
       ) : (
         <div className="relative border border-[#2a2a5a] overflow-hidden h-[280px] mb-3 bg-[#050515]">
-          {trailer ? (
+          {trailer && !prefersReducedMotion ? (
             <iframe
               src={`https://www.youtube.com/embed/${trailer.key}?autoplay=1&mute=1&loop=1&playlist=${trailer.key}&controls=0&showinfo=0&modestbranding=1&playsinline=1`}
               className="absolute inset-0 w-full h-full pointer-events-none"
@@ -154,7 +159,7 @@ export const MovieDetail = () => {
             />
           ) : (
             <img
-              src={movie.imgFull}
+              src={getPosterUrl(movie, "original")}
               alt={movie.title}
               className="w-full h-full object-cover block opacity-40"
             />
@@ -254,11 +259,7 @@ export const MovieDetail = () => {
           {/* Poster */}
           <div className="border border-[#2a2a5a] mb-2 bg-[#050520]">
             <img
-              src={
-                movie.poster_path
-                  ? `https://image.tmdb.org/t/p/w342${movie.poster_path}`
-                  : `https://placehold.co/154x231?text=No+Poster`
-              }
+              src={getPosterUrl(movie, "w342")}
               alt={movie.title}
               className="w-full object-cover block"
             />

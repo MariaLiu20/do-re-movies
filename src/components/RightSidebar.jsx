@@ -1,22 +1,39 @@
+import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router";
+
+const fetchTrending10 = async () => {
+  const response = await fetch(
+    "https://api.themoviedb.org/3/trending/all/day?language=en-US",
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_READ_ACCESS_TOKEN}`,
+      },
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error(`TMDB error: ${response.status}`);
+  }
+
+  return response.json();
+};
+
 export const RightSidebar = () => {
+  const { data } = useQuery({
+    queryKey: ["top10Trending"],
+    queryFn: fetchTrending10,
+  });
+  
+  const top20 = data?.results ?? [];
   return (
     <div className="w-[172px] shrink-0 border-l border-[#1a1a4a]">
-      {/* Top 10 */}
+      {/* Top 20 */}
       <div>
-        <div className="section-header text-[11px]">Top 10 This Week</div>
-        {[
-          "Finding Nemo",
-          "Pirates of Carib.",
-          "Matrix Reloaded",
-          "Elf",
-          "X2: X-Men United",
-          "The Sopranos S4",
-          "24 Season 3",
-          "Terminator 3",
-          "Friends S9",
-          "CSI Season 4",
-        ].map((title, i) => (
-          <div
+        <div className="section-header text-[11px]">Top 20 This Week</div>
+        {top20.map((item, i) => (
+          <Link
+          to={`/movie/${item.id}`}
             key={i}
             className="flex items-center gap-1.5 px-2 py-1 border-b border-[#0d0d20] cursor-pointer text-[10px] hover:bg-[#111128] transition-colors"
           >
@@ -27,8 +44,8 @@ export const RightSidebar = () => {
             >
               {i + 1}
             </span>
-            <span className="text-[#aaaacc]">{title}</span>
-          </div>
+            <span className="text-[#aaaacc]">{item.title ?? item.name}</span>
+          </Link>
         ))}
       </div>
 
