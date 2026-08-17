@@ -113,6 +113,12 @@ export const Home = () => {
           >
             &#128250; TV Shows
           </button>
+          <button
+            className={`nav-tab ${activeSection === "people" ? "active" : ""}`}
+            onClick={() => setActiveSection("people")}
+          >
+            &#128250; People
+          </button>
         </div>
 
         {activeSection === "movies" && (

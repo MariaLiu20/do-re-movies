@@ -10,12 +10,6 @@ export const NavBar = () => {
       >
         Home
       </NavLink>
-      <NavLink
-        className={({ isActive }) => isActive ? "nav-tab active" : "nav-tab"}
-        to="/search"
-      >
-        Search
-      </NavLink>
       <NavLink to="/watchlist" className={({ isActive }) => isActive ? "nav-tab active" : "nav-tab"}>
         Watchlist
       </NavLink>
