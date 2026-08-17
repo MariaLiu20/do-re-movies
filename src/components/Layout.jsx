@@ -1,12 +1,15 @@
 import { SearchBar } from "./SearchBar";
 import { NavBar } from "./NavBar";
+import { useNavigate } from "react-router";
 
 export const Layout = () => {
+  const navigate = useNavigate()
+
   return (
     <div className="bg-[#0a0a14] font-[Verdana,Arial,sans-serif] text-xs">
       <header className="flex items-center gap-4 px-3 py-5 border-b-2 border-[#2a2a6a] bg-gradient-to-b from-[#0d0d2e] to-[#070718]">
-        {/* Logo, make clickable */}
-        <div className="shrink-0">
+        {/* Logo */}
+        <div className="shrink-0 cursor-pointer" onClick={() => navigate('/')}>
           <h1 className="font-sixtyfour mb-1 tracking-tight text-xl sm:text-2xl lg:text-3xl text-transparent">
             <span className="inline-block bg-gradient-to-r from-pink-400 via-red-400 to-orange-300 bg-clip-text">
               Do
