@@ -73,7 +73,7 @@ const fetchVideos = async ({ queryKey }) => {
   return response.json();
 };
 
-export const MovieDetail = () => {
+export const MediaDetail = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const { id } = useParams(); // The key 'id' matches the ':id' path variable in the Route configuration
   console.log("id", id);

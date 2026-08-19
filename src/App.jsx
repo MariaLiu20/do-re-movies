@@ -1,5 +1,5 @@
 import "./App.css";
-import { MovieDetail } from "./components/MovieDetail";
+import { MediaDetail } from "./components/MediaDetail";
 import { Home } from "./components/Home";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { SearchResults } from "./components/SearchResults";
@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/search" element={<SearchResults />} />
-        <Route path="/movie/:id" element={<MovieDetail />} />
+        <Route path="/movie/:id" element={<MediaDetail />} />
         {/* <Route path="/watchlist" element={<WatchlistPage />} /> */}
       </Routes>
     </BrowserRouter>
