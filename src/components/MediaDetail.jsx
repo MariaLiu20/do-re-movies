@@ -39,11 +39,9 @@ function StarRating({ rating, max = 5 }) {
   );
 }
 
-const fetchMovieDetails = async ({ queryKey }) => {
-  const [, movieId] = queryKey;
-
+const fetchDetails = async (mediaType, id) => {
   const response = await fetch(
-    `https://api.themoviedb.org/3/movie/${movieId}`,
+    `https://api.themoviedb.org/3/${mediaType}/${id}`,
     {
       method: "GET",
       headers: {
@@ -59,10 +57,9 @@ const fetchMovieDetails = async ({ queryKey }) => {
   return response.json();
 };
 
-const fetchVideos = async ({ queryKey }) => {
-  const [, movieId] = queryKey;
+const fetchVideos = async (mediaType, id) => {
   const response = await fetch(
-    `https://api.themoviedb.org/3/movie/${movieId}/videos`,
+    `https://api.themoviedb.org/3/${mediaType}/${id}/videos`,
     {
       headers: {
         Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_READ_ACCESS_TOKEN}`,
@@ -73,26 +70,25 @@ const fetchVideos = async ({ queryKey }) => {
   return response.json();
 };
 
-export const MediaDetail = () => {
+export const MediaDetail = ({mediaType}) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const { id } = useParams(); // The key 'id' matches the ':id' path variable in the Route configuration
-  console.log("id", id);
+  const { medidaType, id } = useParams(); // The key 'id' matches the ':id' path variable in the Route configuration
   const navigate = useNavigate();
 
   const {
-    data: movie,
+    data,
     isLoading,
     isError,
     error,
   } = useQuery({
-    queryKey: ["details", id],
-    queryFn: fetchMovieDetails,
+    queryKey: ["details", mediaType, id],
+    queryFn: () => fetchDetails(mediaType, id),
     enabled: !!id,
   });
 
   const { data: videosData } = useQuery({
-    queryKey: ["videos", id],
-    queryFn: fetchVideos,
+    queryKey: ["videos", mediaType, id],
+    queryFn: () => fetchVideos(mediaType, id),
     enabled: !!id,
   });
 
@@ -114,12 +110,21 @@ export const MediaDetail = () => {
 
   if (isError) {
     return (
-      <div className="mx-auto max-w-3xl px-4 py-12 text-center text-red-300">
-        <p>Could not load movie details.</p>
-        <p>{error.message}</p>
-        <Link to="/" className="mt-4 inline-block text-cyan-400">
-          Back to Home
-        </Link>
+      <div className="text-center py-12 border border-[#1a1a3a] bg-[#0d0d28]">
+        <div className="font-[Impact,sans-serif] text-[32px] text-[#ff6600] tracking-[2px] mb-4">
+          {error.message}
+        </div>
+        <div className="text-[11px] text-[#555577] mb-1">
+          Your search for{" "}
+          <span className="text-[#9999cc]">&quot;dsfdsfds&quot;</span> did not
+          match any titles.
+        </div>
+        <div className="text-[10px] text-[#444466] mb-4">
+          Check your spelling or try a different search term.
+        </div>
+        <button className="btn-retro text-[10px]" onClick={() => navigate("/")}>
+          &#171; BROWSE ALL TITLES
+        </button>
       </div>
     );
   }
@@ -142,7 +147,7 @@ export const MediaDetail = () => {
           Movies
         </span>
         &nbsp;&nbsp;&#9658;&nbsp;&nbsp;
-        <span className="text-[#9999cc]">{movie.title}</span>
+        <span className="text-[#9999cc]">{data.title}</span>
       </div>
 
       {isPlaying ? (
@@ -159,8 +164,8 @@ export const MediaDetail = () => {
             />
           ) : (
             <img
-              src={getPosterUrl(movie, "original")}
-              alt={movie.title}
+              src={getPosterUrl(data, "original")}
+              alt={data.title}
               className="w-full h-full object-cover block opacity-40"
             />
           )}
@@ -172,22 +177,22 @@ export const MediaDetail = () => {
             }}
           >
             <div className="flex gap-2 items-center mb-2">
-              {movie.isNew && <span className="badge-new">NEW!</span>}
-              {movie.isHD && <span className="badge-hd">HD</span>}
+              {data.isNew && <span className="badge-new">NEW!</span>}
+              {data.isHD && <span className="badge-hd">HD</span>}
               <span className="text-[10px] text-[#ff6600] tracking-[1px] uppercase">
-                {movie.genre}
+                {data.genre}
               </span>
             </div>
             <div
               className="font-[Impact,Arial,sans-serif] text-[36px] text-white tracking-[3px] leading-none mb-2"
               style={{ textShadow: "2px 2px 0 #000033" }}
             >
-              {movie.title.toUpperCase()}
+              {data.title.toUpperCase()}
             </div>
             <div className="text-[11px] text-[#aaaacc] mb-3">
-              {movie.year} &bull; {movie.genre} &bull; {movie.runtime}{" "}
+              {data.year} &bull; {data.genre} &bull; {data.runtime}{" "}
               &bull;&nbsp;
-              <StarRating rating={movie.rating} />
+              <StarRating rating={data.rating} />
             </div>
             <div className="flex gap-2">
               <button
@@ -219,7 +224,7 @@ export const MediaDetail = () => {
               background: "linear-gradient(180deg,#0d0d28 0%,#080820 100%)",
             }}
           >
-            {movie.overview}
+            {data.overview}
           </div>
 
           {/* Cast & crew */}
@@ -230,7 +235,7 @@ export const MediaDetail = () => {
           >
             <div className="flex items-center gap-2 px-3 py-2 border-b border-[#111128] text-[10px]">
               <span className="text-[#555577] w-20 shrink-0">Director</span>
-              <span className="text-[#00ccff]">{movie.director}</span>
+              <span className="text-[#00ccff]">{data.director}</span>
             </div>
             {["Bob", "Maria"].map((actor, i) => (
               <div
@@ -259,8 +264,8 @@ export const MediaDetail = () => {
           {/* Poster */}
           <div className="border border-[#2a2a5a] mb-2 bg-[#050520]">
             <img
-              src={getPosterUrl(movie, "w342")}
-              alt={movie.title}
+              src={getPosterUrl(data, "w342")}
+              alt={data.title}
               className="w-full object-cover block"
             />
           </div>
@@ -272,11 +277,11 @@ export const MediaDetail = () => {
             style={{ background: "#0d0d28" }}
           >
             {[
-              ["Year", String(movie.release_date).slice(0, 4)],
-              ["Genre", movie.genre],
-              ["Runtime", `${movie.runtime} mins`],
-              ["Director", movie.director],
-              ["Views", movie.views],
+              ["Year", String(data.release_date).slice(0, 4)],
+              ["Genre", data.genre],
+              ["Runtime", `${data.runtime} mins`],
+              ["Director", data.director],
+              ["Views", data.views],
             ].map(([label, val]) => (
               <div
                 key={label}
